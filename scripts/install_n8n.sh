@@ -35,7 +35,7 @@ services:
     ports:
       - "5678:5678"
     environment:
-      - GENERIC_TIMEZONE=Europe/Madrid
+      - GENERIC_TIMEZONE=America/Bogota
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=$ESCAPED_USER
       - N8N_BASIC_AUTH_PASSWORD=$ESCAPED_PASSWORD
