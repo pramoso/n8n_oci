@@ -32,7 +32,7 @@ sudo systemctl enable nginx --now
 ## 3. Create a reverse proxy config
 
 Create `/etc/nginx/sites-available/n8n` with the following content
-(replace `n8n.example.com` with your domain):
+(replace `_` => `n8n.example.com` with your domain or leave it with `_` so it catches all domains):
 
 ```nginx
 server {
