@@ -38,14 +38,19 @@ Create `/etc/nginx/sites-available/n8n` with the following content
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
-    server_name _;
+    server_name _;  # Catch-all
+
     location / {
-        proxy_pass http://localhost:5678;
+        proxy_pass http://127.0.0.1:5678;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
         proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffering off;
     }
 }
 ```
@@ -53,6 +58,7 @@ server {
 Activate the configuration and test:
 
 ```bash
+sudo rm /etc/nginx/sites-enabled/default
 sudo ln -s /etc/nginx/sites-available/n8n /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl reload nginx
 ```
